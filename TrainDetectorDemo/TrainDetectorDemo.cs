@@ -16,7 +16,7 @@ namespace TrainDetectorDemo
                 NetWeights = "E:\\VSProjects\\darknet\\build\\darknet\\x64\\darknet53.conv.74",
                 TrainDataPath = "E:\\Pictures\\train\\file",
                 DataFilePath = "E:\\Pictures\\train\\train.data",
-                Iteration = 20,
+                Iteration = 1,
                 MsgQueue = msgQueue
             };
 
