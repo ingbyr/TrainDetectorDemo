@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading;
 using TrainDetectorDll;
 
 namespace TrainDetectorDemo
@@ -19,7 +16,7 @@ namespace TrainDetectorDemo
                 NetWeights = "E:\\VSProjects\\darknet\\build\\darknet\\x64\\darknet53.conv.74",
                 TrainDataPath = "E:\\Pictures\\train\\file",
                 DataFilePath = "E:\\Pictures\\train\\train.data",
-                Iteration = 5,
+                Iteration = 20,
                 MsgQueue = msgQueue
             };
 
@@ -45,30 +42,10 @@ namespace TrainDetectorDemo
             //File.WriteAllLines("E:\\Pictures\\train\\result.txt", results);
         }
 
-        static void ParseOoutputTest()
-        {
-            var lines = File.ReadAllLines("E:\\Pictures\\train\\result.txt");
-            foreach (var line in lines)
-            {
-                // 1: 847.762512, 847.762512 avg loss, 0.000000 rate, 7.069180 seconds, 64 images
-                if(line.EndsWith("images"))
-                {
-                    var results = line.Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
-                    Console.WriteLine("iterations: " + results[0].Split(':')[0]);
-                    Console.WriteLine("avg loss: " + results[1].Split(' ')[0]);
-                    Console.WriteLine("rate: " + results[2].Split(' ')[0]);
-                    Console.WriteLine("seconds: " + results[3].Split(' ')[0]);
-                    Console.WriteLine("images: " + results[4].Split(' ')[0]);
-                    Console.WriteLine();
-                }
-            }
-        }
-
 
         static void Main(string[] args)
         {
             TestTrainDector();
-            //ParseOoutputTest();
         }
     }
 }
