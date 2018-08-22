@@ -41,8 +41,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="TrainDetectorDll">
-      <HintPath>..\..\TrainDetectorDll\TrainDetectorDll\obj\Debug\TrainDetectorDll.dll</HintPath>
+    <Reference Include="TrainDetectorDll, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\TrainDetectorDll\TrainDetectorDll\bin\Release\TrainDetectorDll.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
