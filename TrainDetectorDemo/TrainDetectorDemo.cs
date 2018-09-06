@@ -30,6 +30,7 @@ namespace TrainDetectorDemo
             trainDector.prepareData(dataFile);
 
             trainDector.startTrain();
+            trainDector.debug = true;
 
             Console.WriteLine();
             Console.WriteLine("start training...");
