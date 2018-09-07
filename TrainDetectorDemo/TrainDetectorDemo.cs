@@ -1,5 +1,6 @@
 ﻿using System;
 using TrainDetectorDll;
+using System.Threading;
 
 namespace TrainDetectorDemo
 {
@@ -8,16 +9,15 @@ namespace TrainDetectorDemo
 
         static void TestTrainDector()
         {
-            var msgQueue = new FixedSizedQueue<TrainDetector.StepResult>(1000);
             TrainDetector trainDector = new TrainDetector()
             {
                 Trainer = "E:\\VSProjects\\darknet\\build\\darknet\\x64\\darknet.exe",
+                //Trainer = "E:\\VSProjects\\darknet\\build\\darknet\\x64\\darknet_no_gpu.exe",
                 NetCfg = "E:\\Pictures\\train\\cfg\\yolov3.cfg",
                 NetWeights = "E:\\VSProjects\\darknet\\build\\darknet\\x64\\darknet53.conv.74",
                 TrainDataPath = "E:\\Pictures\\train\\file",
                 DataFilePath = "E:\\Pictures\\train\\train.data",
-                Iteration = 1,
-                MsgQueue = msgQueue
+                Iteration = 2
             };
 
             TrainDetector.DataFile dataFile;
@@ -27,17 +27,26 @@ namespace TrainDetectorDemo
             dataFile.Names = "E:\\Pictures\\train\\train.names";
             dataFile.Backup = "E:\\Pictures\\train\\backup";
 
+            trainDector.debug = false;
             trainDector.prepareData(dataFile);
 
-            trainDector.startTrain();
-            trainDector.debug = true;
-
-            Console.WriteLine();
-            Console.WriteLine("start training...");
-            TrainDetector.StepResult result;
-            while (trainDector.IsTraining)
+            var train = new Thread(() =>
             {
-                while (msgQueue.TryDequeue(out result)) Console.WriteLine(result.ToString());
+                trainDector.startTrain();
+            });
+            train.Start();
+
+            TrainDetector.StepResult result;
+            while (train.IsAlive)
+            {
+                while (trainDector.IsTraining || (trainDector.MsgQueue.Count > 0))
+                {
+                    while (trainDector.MsgQueue.TryDequeue(out result))
+                    {
+                        Console.WriteLine(result.ToString());
+                        Console.WriteLine("-----------------------------");
+                    }
+                }
             }
 
             //File.WriteAllLines("E:\\Pictures\\train\\result.txt", results);

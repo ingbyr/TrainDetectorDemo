@@ -43,7 +43,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="TrainDetectorDll, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\TrainDetectorDll\TrainDetectorDll\bin\Release\TrainDetectorDll.dll</HintPath>
+      <HintPath>bin\Release\TrainDetectorDll.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
