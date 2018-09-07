@@ -1,6 +1,5 @@
 ﻿using System;
 using TrainDetectorDll;
-using System.Threading;
 
 namespace TrainDetectorDemo
 {
@@ -27,29 +26,20 @@ namespace TrainDetectorDemo
             dataFile.Names = "E:\\Pictures\\train\\train.names";
             dataFile.Backup = "E:\\Pictures\\train\\backup";
 
-            trainDector.debug = false;
+            trainDector.debug = true;
             trainDector.prepareData(dataFile);
+            trainDector.startTrain();
 
-            var train = new Thread(() =>
-            {
-                trainDector.startTrain();
-            });
-            train.Start();
 
             TrainDetector.StepResult result;
-            while (train.IsAlive)
+            while (trainDector.IsTraining || (trainDector.MsgQueue.Count > 0))
             {
-                while (trainDector.IsTraining || (trainDector.MsgQueue.Count > 0))
+                while (trainDector.MsgQueue.TryDequeue(out result))
                 {
-                    while (trainDector.MsgQueue.TryDequeue(out result))
-                    {
-                        Console.WriteLine(result.ToString());
-                        Console.WriteLine("-----------------------------");
-                    }
+                    Console.WriteLine(result.ToString());
+                    Console.WriteLine("-----------------------------");
                 }
             }
-
-            //File.WriteAllLines("E:\\Pictures\\train\\result.txt", results);
         }
 
 
