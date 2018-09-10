@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using TrainDetectorDll;
 
 namespace TrainDetectorDemo
@@ -8,13 +9,14 @@ namespace TrainDetectorDemo
 
         static void TestTrainDector()
         {
+
             TrainDetector trainDector = new TrainDetector()
             {
                 Trainer = "E:\\VSProjects\\darknet\\build\\darknet\\x64\\darknet.exe",
                 //Trainer = "E:\\VSProjects\\darknet\\build\\darknet\\x64\\darknet_no_gpu.exe",
                 NetCfg = "E:\\Pictures\\train\\cfg\\yolov3.cfg",
                 NetWeights = "E:\\VSProjects\\darknet\\build\\darknet\\x64\\darknet53.conv.74",
-                TrainDataPath = "E:\\Pictures\\train\\file",
+                TrainDataPaths = new List<String> { "E:\\Pictures\\train\\file", "E:\\Pictures\\logo" },
                 DataFilePath = "E:\\Pictures\\train\\train.data",
                 Iteration = 2
             };
