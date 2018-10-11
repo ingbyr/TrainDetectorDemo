@@ -18,7 +18,7 @@ namespace TrainDetectorDemo
                 NetWeights = "E:\\VSProjects\\darknet\\build\\darknet\\x64\\darknet53.conv.74",
                 TrainDataPaths = new List<String> { "E:\\Pictures\\train\\file", "E:\\Pictures\\logo" },
                 DataFilePath = "E:\\Pictures\\train\\train.data",
-                Iteration = 2
+                Iteration = 5
             };
 
             TrainDetector.DataFile dataFile;
